@@ -23,6 +23,7 @@ def submit():
 
     # Get the message to send
     message = chat_input.get("1.0", tk.END).strip()
+    
 
     # Check if file checkbox is selected
     if send_file_var.get() == 1:
@@ -54,7 +55,7 @@ def submit():
 
         # Update the error label
         messagebox.showinfo("Success", "File sent successfully")
-    else:
+    elif message:
         # Connect to the receiving machine
         try:
             sock.connect((receiver_address, int(receiver_port_var.get())))
@@ -64,6 +65,9 @@ def submit():
 
         # Send the message over the socket
         sock.sendall(message.encode())
+        chat_output.config(state=tk.NORMAL)
+        chat_output.insert(tk.END, sock.recv(1024).decode() + '\n')
+        chat_output.config(state=tk.DISABLED)        
         
         if 'ENDZZZ' in message:
             sock.close()
