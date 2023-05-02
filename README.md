@@ -1,5 +1,5 @@
 # TCP Client-Server File Transfer
-This program allows the user to send both text and files from the client (sender) to the server (receiver) via a TCP connection through a local network.
+These scripts allow the user to send both text and files from the client (sender) to the server (receiver) via a TCP connection through a local network.
 
 ## Requirements
 Python 3.x
