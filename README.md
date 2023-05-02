@@ -5,7 +5,7 @@ This program allows the user to send both text and files from the client (sender
 Python 3.x
 tkinter (for GUI)
 
-The requirements can be installed by using ´pip install -r requirements.txt´
+The requirements can be installed by using ´´´pip install -r requirements.txt´´´
 
 ## Usage
 Run the server script on the receiving end by executing ´python receiver.py´ on the command line.
