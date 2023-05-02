@@ -2,6 +2,7 @@ import socket
 import os
 import tkinter as tk
 import threading
+import traceback
 
 # Define the IP address and port number to bind the socket to
 IP_ADDRESS = socket.gethostbyname(socket.gethostname())
@@ -76,7 +77,7 @@ def handle_connection():
 
                 # Update the file name label
                 file_name_var.set(f'Received file "{file_name}" from {client_address[0]}:{client_address[1]}')
-            else:
+            elif data:
                 # Received text message from client
                 message = f'{client_address[0]}:{client_address[1]} - {data}'
 
@@ -85,6 +86,7 @@ def handle_connection():
                 chat_output.insert(tk.END, message + '\n')
                 chat_output.config(state=tk.DISABLED)
                 chat_output.see(tk.END)
+                client_socket.sendall(f'Sent - {client_address[0]}:{client_address[1]} - {data}'.encode())
 
                 # Check if the message is "ENDZZZ"
                 if 'ENDZZZ' in message:
@@ -104,6 +106,7 @@ def handle_connection():
                         if t != threading.current_thread():
                             t.join()
         except Exception:
+            print(traceback.format_exc())
             connection_finished = True
             if client_socket:
                 client_socket.close()
